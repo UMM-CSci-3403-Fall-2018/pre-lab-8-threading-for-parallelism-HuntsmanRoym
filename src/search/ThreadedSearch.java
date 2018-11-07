@@ -36,9 +36,9 @@ public class ThreadedSearch<T> implements Searcher<T>, Runnable {
         //Starts and creates threads
         for (int i=0; i<numThreads; i++) {
             //Sets begin as first position in the list for each i'th thread
-            int begin = (list.size() * i / numThreads);
+            int begin = ((int)Math.floor(list.size() / numThreads)) * i;
             //Sets end as final position for each individual i'th thread as the i+1's start position
-            int end = ((list.size() * (i + 1)) / numThreads);
+            int end = ((int)Math.floor(list.size() / numThreads) * (i+1));
 
             //Create and start thread i based off ThreadedSearch
             ThreadedSearch<T> threadedSearch = new ThreadedSearch<>(target, list, begin, end, answer);
@@ -57,8 +57,17 @@ public class ThreadedSearch<T> implements Searcher<T>, Runnable {
 
     public void run() {
         for (int i=begin; i<end; i++) {
+
             if (answer.getAnswer() == true) {
-                return;
+
+                break;
+            }
+
+            else {
+
+                if(list.get(i) == target){
+                    answer.setAnswer(true);
+                }
             }
         }
     }

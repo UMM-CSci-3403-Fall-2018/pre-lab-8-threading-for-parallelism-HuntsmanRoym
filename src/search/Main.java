@@ -9,7 +9,7 @@ public class Main {
 
     public static void main(String[] args) throws InterruptedException {
         // Update this to make things go faster or take longer for timing studies.
-        final int ARRAY_SIZE = 100000000;
+        final int ARRAY_SIZE = 10000000;
         Random random = new Random();
         ArrayList<Integer> numbers = new ArrayList<Integer>();
         for (int i = 0; i < ARRAY_SIZE; ++i) {
@@ -38,7 +38,7 @@ public class Main {
     private static boolean searchArray(int target, ArrayList<Integer> list) throws InterruptedException {
         // You can replace ThreadedSearch with LinearSearch to see this work with
         // the given linear search code.
-        Searcher<Integer> searcher = new LinearSearch<>();
+        Searcher<Integer> searcher = new ThreadedSearch<>(4);
 
         // This specifies 4 threads for the tests. It would be a good idea to play
         // with this and see how that changes things. Keep in mind that your number
